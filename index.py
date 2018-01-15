@@ -1,31 +1,22 @@
-# from lxml import html
-# import requests
-# page = requests.get('http://www.ideaswatch.com/browse?p=3')
-# tree = html.fromstring(page.content)
-#
-# ideas = tree.xpath('//div[@class="postit_text"]/text()')
-# print ('ideas: ', ideas)
-
 import requests
 from bs4 import BeautifulSoup
-
+#get ideas website
 url = 'http://www.ideaswatch.com/startup-ideas/?p='
-
+#loop through number of pages
 for page in range(211):
 
     
 
     r = requests.get(url + str(page))
-
+    #get all the content from the pages
     soup = BeautifulSoup(r.content, "html.parser")
 
-    # String substitution for HTML
+    # select all divs
     for link in soup.find_all("div"):
+        #select the divs with the class postit_text
         general_data = soup.find_all('div', {'class' : 'postit_text'})
 
-    # Fetch and print general data from title class
-
-
+    #loop trough all the classes
     for item in general_data:
-
+        #print the ideas
         print(item.contents[0])
